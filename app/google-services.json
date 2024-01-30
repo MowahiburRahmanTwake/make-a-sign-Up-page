@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "430255001883",
+    "project_id": "make-a-simple-signup",
+    "storage_bucket": "make-a-simple-signup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430255001883:android:ecb561c80a5942048e83be",
+        "android_client_info": {
+          "package_name": "com.bogo.makeasimplesignup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANJmeko_lybIO2pkqv1SnXYiQCqiev4Zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
