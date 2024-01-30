@@ -7,9 +7,10 @@ import android.widget.Toast
 import com.bogo.makeasimplesignup.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class SignUpActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: ActivitySignUpBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -19,8 +20,11 @@ class SignUpActivity : AppCompatActivity() {
         binding.btnSignUp.setOnClickListener {
             signUpUser()
         }
-        
-
+        binding.btnLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun signUpUser() {
@@ -37,6 +41,7 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(this, "Password and Confirm Password do not match", Toast.LENGTH_SHORT).show()
             return
         }
+
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -45,13 +50,8 @@ class SignUpActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Error creating user: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Error creating user: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 }
-

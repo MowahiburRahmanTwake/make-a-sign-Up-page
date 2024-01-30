@@ -7,9 +7,10 @@ import android.widget.Toast
 import com.bogo.makeasimplesignup.databinding.ActivityLogInBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class LogInActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: ActivityLogInBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLogInBinding.inflate(layoutInflater)
@@ -20,32 +21,31 @@ class LogInActivity : AppCompatActivity() {
             login()
         }
         binding.btnSignUp.setOnClickListener {
-            val intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
             finish()
         }
     }
 
     private fun login() {
-        val email = binding.etEmailAddress.text.toString()
+        val email: String = binding.etEmailAddress.text.toString()
         val password: String = binding.etPassword.text.toString()
+
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Email/password cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
-        firebaseAuth.signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener(this) {task -> 
-            if (task.isSuccessful){
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this,MainActivity::class.java)
-                startActivity(intent)
-                finish()
+
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
             }
-            else {
-                Toast.makeText(this, "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-        
-        
     }
 }
